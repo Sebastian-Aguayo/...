@@ -12,27 +12,30 @@ const ded = document.getElementById('dedicatoria');
 const { para, mensaje } = getParams();
 ded.textContent = `${para} — ${mensaje}`;
 
+
 // --- Música ---
 const audio = document.getElementById('musica');
-let audioCargado = false;
+let audioCargado = false; // Variable para controlar la carga
 
 document.getElementById('btnAudio').addEventListener('click', async () => {
-  // Si el audio no ha sido cargado, primero lo carga al hacer clic.
+  // **INICIO DE LA CORRECCIÓN PARA MÓVILES**
+  // Si es el primer clic, se carga el audio para que el navegador lo permita.
   if (!audioCargado) {
     audio.load();
     audioCargado = true;
   }
-  
-  try {
-    // Intenta reproducir el audio.
-    await audio.play();
-    
-    // Si ya está sonando, reinícialo (opcional)
-    if (audio.currentTime > 0) {
-        audio.currentTime = 0;
-    }
+  // **FIN DE LA CORRECCIÓN**
 
-    // Fade-in suave
+  try {
+    // Si el audio ya está sonando, lo reinicia. Si no, lo reproduce.
+    if (audio.paused) {
+      await audio.play();
+    } else {
+      audio.currentTime = 0;
+      await audio.play();
+    }
+    
+    // Fade-in suave para el volumen
     audio.volume = 0;
     let v = 0;
     const id = setInterval(() => {
@@ -42,8 +45,7 @@ document.getElementById('btnAudio').addEventListener('click', async () => {
     }, 100);
 
   } catch (e) {
-    console.warn('No se pudo reproducir el audio:', e);
-    // En algunos casos, un segundo clic del usuario funcionará.
+    console.warn('No se pudo reproducir:', e);
   }
 });
 
@@ -58,7 +60,9 @@ document.getElementById('btnGuardar').addEventListener('click', async () => {
   a.click();
 });
 
+
 // --- SECCIÓN DE CÓDIGO DE POSTALES ELIMINADA ---
+
 
 // --- Modal de PDF ---
 const modalPdf = document.getElementById('modalPdf');
@@ -69,12 +73,14 @@ if (document.getElementById('btnDedicatoria')) {
     document.querySelectorAll('[data-close-pdf]').forEach(el => el.addEventListener('click', () => modalPdf.hidden = true));
 }
 
+
 // Cerrar modales con tecla Escape
 addEventListener('keydown', (e) => {
   if (e.key === 'Escape') {
     if (modalPdf) modalPdf.hidden = true;
   }
 });
+
 
 // --- El resto del código de flores y pétalos ---
 // (No necesita cambios)
@@ -195,5 +201,3 @@ function loop() {
   requestAnimationFrame(loop);
 }
 loop();
-
-
