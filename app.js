@@ -14,20 +14,39 @@ ded.textContent = `${para} — ${mensaje}`;
 
 // --- Música ---
 const audio = document.getElementById('musica');
+let audioCargado = false;
+
 document.getElementById('btnAudio').addEventListener('click', async () => {
+  // Si el audio no ha sido cargado, primero lo carga al hacer clic.
+  if (!audioCargado) {
+    audio.load();
+    audioCargado = true;
+  }
+  
   try {
-    audio.volume = 0;
+    // Intenta reproducir el audio.
     await audio.play();
+    
+    // Si ya está sonando, reinícialo (opcional)
+    if (audio.currentTime > 0) {
+        audio.currentTime = 0;
+    }
+
+    // Fade-in suave
+    audio.volume = 0;
     let v = 0;
     const id = setInterval(() => {
       v = Math.min(1, v + 0.05);
       audio.volume = v;
       if (v >= 1) clearInterval(id);
     }, 100);
+
   } catch (e) {
-    console.warn('No se pudo reproducir:', e);
+    console.warn('No se pudo reproducir el audio:', e);
+    // En algunos casos, un segundo clic del usuario funcionará.
   }
 });
+
 
 // --- Guardar como imagen ---
 document.getElementById('btnGuardar').addEventListener('click', async () => {
@@ -176,3 +195,5 @@ function loop() {
   requestAnimationFrame(loop);
 }
 loop();
+
+
