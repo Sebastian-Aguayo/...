@@ -1,0 +1,95 @@
+:root{
+  --amarillo:#FFC107;
+  --amarillo-claro:#FFD54F;
+  --ambar:#FFB300;
+  --fondo1:#fff8e1;
+  --fondo2:#ffe082;
+  --texto:#3a2e1f;
+  --sombra: rgba(0,0,0,.12);
+}
+
+*{box-sizing:border-box}
+
+html,body{
+  height:100%;
+  margin:0;
+  font-family:'Quicksand', system-ui, sans-serif;
+  color:var(--texto);
+  background: linear-gradient(160deg, var(--fondo1), var(--fondo2));
+  overflow:hidden;
+}
+
+#petalos{
+  position:fixed;
+  inset:0;
+  z-index:0;
+}
+
+.card{
+  position:relative;
+  z-index:1;
+  width:min(720px, 92vw);
+  margin:6vh auto;
+  background:#fffbea;
+  border-radius:18px;
+  box-shadow:0 16px 40px var(--sombra);
+  padding:24px 20px 28px;
+  text-align:center;
+}
+
+.titulo{
+  font-family:'Ms Madi', cursive;
+  font-size: clamp(36px, 7vw, 64px);
+  margin:6px 0 12px;
+  color:#7a5a00;
+}
+
+.dedicatoria{
+  font-size: clamp(16px, 2.8vw, 20px);
+  margin:0 0 12px;
+}
+
+.florero{
+  position:relative;
+  min-height:220px;
+  padding:14px;
+  border-radius:16px;
+  background:linear-gradient(180deg, #fff7d6, #ffe89a);
+  box-shadow: inset 0 8px 24px rgba(0,0,0,.06);
+  overflow:hidden;
+}
+
+.btn{
+  appearance:none;
+  border:none;
+  background: radial-gradient(120% 120% at 50% 0%, var(--amarillo-claro), var(--amarillo));
+  color:#4a3800;
+  padding:10px 14px;
+  margin:8px;
+  border-radius:12px;
+  font-weight:600;
+  cursor:pointer;
+  box-shadow:0 6px 16px rgba(255,193,7,.35);
+  transition: transform .06s ease, box-shadow .2s ease;
+}
+.btn:active{ transform: translateY(1px); box-shadow:0 3px 10px rgba(255,193,7,.35); }
+
+.acciones{ margin-top:10px; }
+
+.nota{ opacity:.7; font-size:13px; margin-top:10px; }
+
+/* Flor SVG base */
+.flor{
+  position:absolute;
+  width:96px;
+  height:96px;
+  transform-origin:center center;
+  animation:flotar 6s ease-in-out infinite;
+  filter: drop-shadow(0 6px 8px rgba(0,0,0,.12));
+}
+@keyframes flotar{
+  0%,100%{ transform: translateY(0) rotate(-2deg); }
+  50%{ transform: translateY(-8px) rotate(2deg); }
+}
+
+/* Pétalos que caen en canvas: estilo general solo para cohesión */
