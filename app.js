@@ -162,3 +162,42 @@ function loop(){
   requestAnimationFrame(loop);
 }
 loop();
+
+// Rutas de postales
+const POSTALES = ["Melodi 1.jpg","Melodi 2.jpg"]; // en la misma carpeta
+
+// Modal
+const modal = document.getElementById('modalPostales');
+const imgEl = document.getElementById('postalImg');
+let idx = 0;
+
+function abrirModal(i=0){
+  idx = (i+POSTALES.length)%POSTALES.length;
+  imgEl.src = POSTALES[idx];
+  modal.hidden = false;
+}
+function cerrarModal(){ modal.hidden = true; }
+
+document.getElementById('btnPostales').addEventListener('click', ()=> abrirModal(idx));
+document.getElementById('prevImg').addEventListener('click', ()=> abrirModal(idx-1));
+document.getElementById('nextImg').addEventListener('click', ()=> abrirModal(idx+1));
+document.getElementById('closeModal').addEventListener('click', cerrarModal);
+document.getElementById('xModal').addEventListener('click', cerrarModal);
+addEventListener('keydown', (e)=>{ if(!modal.hidden && e.key==='Escape') cerrarModal(); });
+
+// Postal flotante ocasional dentro del florero
+function soltarPostalAleatoria(){
+  const r = florero.getBoundingClientRect();
+  const img = document.createElement('img');
+  const pick = Math.floor(Math.random()*POSTALES.length);
+  img.src = POSTALES[pick];
+  img.className = 'postal';
+  img.style.left = Math.random()*(r.width-160) + 'px';
+  img.style.top = '-120px';
+  img.addEventListener('click', ()=> abrirModal(pick));
+  florero.appendChild(img);
+  // limpiar tras la animación
+  setTimeout(()=> img.remove(), 13000);
+}
+// lanzar una postal cada ~25–35 s
+setInterval(soltarPostalAleatoria, 25000 + Math.random()*10000);

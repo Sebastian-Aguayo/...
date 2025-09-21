@@ -91,3 +91,31 @@ html,body{
   0%,100%{ transform: translateY(0) rotate(-2deg); }
   50%{ transform: translateY(-8px) rotate(2deg); }
 }
+
+/* Modal */
+.modal[hidden]{ display:none }
+.modal{ position:fixed; inset:0; z-index:10; }
+.modal-backdrop{ position:absolute; inset:0; background:rgba(0,0,0,.45); backdrop-filter: blur(2px); }
+.modal-content{
+  position:absolute; inset:auto 0 0 0; margin:auto; top:6vh;
+  width:min(860px, 92vw); background:#fffdf4; border-radius:16px;
+  box-shadow:0 20px 60px rgba(0,0,0,.35); padding:10px; text-align:center;
+}
+.modal-content img{ max-width:100%; max-height:72vh; border-radius:12px; }
+.nav{ position:absolute; top:50%; transform:translateY(-50%); background:rgba(255,193,7,.85);
+  border:none; font-size:30px; width:42px; height:42px; border-radius:50%; cursor:pointer }
+.prev{ left:12px } .next{ right:12px }
+.close{ position:absolute; top:10px; right:10px; border:none; background:#ffe082; width:36px; height:36px; border-radius:50%; cursor:pointer }
+
+/* Postal flotante (sobre el florero) */
+.postal{
+  position:absolute; width:160px; height:auto; border-radius:12px;
+  box-shadow:0 10px 30px rgba(0,0,0,.18);
+  animation:caer 12s linear forwards;
+  cursor:pointer;
+}
+@keyframes caer{
+  0%{ transform:translateY(-20vh) rotate(-6deg); opacity:0 }
+  10%{ opacity:1 }
+  100%{ transform:translateY(60vh) rotate(6deg); opacity:.9 }
+}
