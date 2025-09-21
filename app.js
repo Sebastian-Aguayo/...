@@ -3,7 +3,7 @@ function getParams(){
   const p = new URLSearchParams(location.search);
   return {
     para: p.get('para') || 'Para ti, con cariño',
-    mensaje: p.get('mensaje') || 'Que estas flores amarillas alegren tu día 💛',
+    mensaje: p.get('mensaje') || 'Nunca habias visto unas flores asi eh?',
   };
 }
 
