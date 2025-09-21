@@ -7,7 +7,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&family=Ms+Madi&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
-  <!-- Sugerencia para navegadores: permitir autoplay si el usuario lo habilita en site settings -->
   <meta http-equiv="Permissions-Policy" content="autoplay=(self)">
 </head>
 <body>
@@ -22,33 +21,29 @@
     </section>
 
     <div class="acciones">
-  <button id="btnAudio" class="btn">Tocar para música</button>
-  <button id="btnGuardar" class="btn">Guardar como imagen</button>
-  <button id="btnPostales" class="btn">Ver postales</button>
-</div>
-
-<!-- Modal de postales -->
-<div id="modalPostales" class="modal" hidden>
-  <div class="modal-backdrop" id="closeModal"></div>
-  <div class="modal-content">
-    <button class="nav prev" id="prevImg" aria-label="Anterior">‹</button>
-    <img id="postalImg" alt="Postal floral" />
-    <button class="nav next" id="nextImg" aria-label="Siguiente">›</button>
-    <button class="close" id="xModal" aria-label="Cerrar">✕</button>
-  </div>
-</div>
-
-
-    <p class="nota"></p>
+      <button id="btnAudio" class="btn">Tocar para música</button>
+      <button id="btnGuardar" class="btn">Guardar como imagen</button>
+      <button id="btnDedicatoria" class="btn">Dedicatoria</button>
+    </div>
   </main>
 
-  <!-- Audio oculto: el archivo MP3 debe estar en la misma carpeta -->
+  <!-- Imagen de Peanuts añadida aquí -->
+  <img src="PEANUT.jpg.png" alt="Abrazo de Peanuts" class="footer-img">
+
+  <!-- Modal para la Dedicatoria (PDF) -->
+  <div id="modalPdf" class="modal" hidden>
+    <div class="modal-backdrop" data-close-pdf></div>
+    <div class="modal-content pdf-viewer">
+      <embed src="A.pdf" type="application/pdf" width="100%" height="100%">
+      <button class="close" data-close-pdf aria-label="Cerrar">✕</button>
+    </div>
+  </div>
+
   <audio id="musica" preload="auto" crossorigin="anonymous">
-    <source src="The-Kid-LAROI-NIGHTS-LIKE-THIS-Official-Audio.mp3.mp3" type="audio/mpeg">
+    <source src="The-Kid-LAROI-NIGHTS-LIKE-THIS-Official-Audio.mp3" type="audio/mpeg">
   </audio>
 
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
   <script src="app.js"></script>
-
 </body>
 </html>
