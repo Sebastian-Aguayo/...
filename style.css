@@ -78,12 +78,12 @@ html,body{
 
 .nota{ opacity:.7; font-size:13px; margin-top:10px; }
 
-/* Flor SVG base */
+/* Flor SVG */
 .flor{
   position:absolute;
   width:96px;
   height:96px;
-  transform-origin:center center;
+ transform-origin:center center;
   animation:flotar 6s ease-in-out infinite;
   filter: drop-shadow(0 6px 8px rgba(0,0,0,.12));
 }
@@ -91,5 +91,3 @@ html,body{
   0%,100%{ transform: translateY(0) rotate(-2deg); }
   50%{ transform: translateY(-8px) rotate(2deg); }
 }
-
-/* Pétalos que caen en canvas: estilo general solo para cohesión */

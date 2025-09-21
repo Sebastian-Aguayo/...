@@ -3,20 +3,21 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Flores Amarillas</title> 
+  <title>Flores Amarillas</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&family=Ms+Madi&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
+  <!-- Sugerencia para navegadores: permitir autoplay si el usuario lo habilita en site settings -->
+  <meta http-equiv="Permissions-Policy" content="autoplay=(self)">
 </head>
 <body>
   <canvas id="petalos"></canvas>
 
   <main class="card">
-    <h1 class="titulo">Holaa💛</h1>
+    <h1 class="titulo">Holaa 💛</h1>
     <p id="dedicatoria" class="dedicatoria"></p>
 
     <section class="florero" id="florero" aria-label="Ramo de flores">
-      <!-- Flores se añaden con JS -->
       <button id="crearFlor" class="btn">Añadir flor</button>
     </section>
 
@@ -28,8 +29,9 @@
     <p class="nota"></p>
   </main>
 
-  <audio id="musica" preload="auto">
-    <source src="https://cdn.pixabay.com/audio/2021/09/23/audio_5a2c9d3d4d.mp3" type="audio/mpeg">
+  <!-- Audio oculto: el archivo MP3 debe estar en la misma carpeta -->
+  <audio id="musica" preload="auto" crossorigin="anonymous">
+    <source src="The-Kid-LAROI-NIGHTS-LIKE-THIS-Official-Audio.mp3.mp3" type="audio/mpeg">
   </audio>
 
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
