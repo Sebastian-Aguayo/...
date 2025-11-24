@@ -184,6 +184,17 @@ html,body{
 }
 
 
+#pochita-img {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 110px;  /* ajusta el tamaño a tu gusto */
+  z-index: 10;
+  /* Opcional: pequeño salto fuera del borde, como si se asomara */
+  transform: translate(30%, 15%) rotate(-15deg);
+  cursor: pointer;
+}
+
 
 
 

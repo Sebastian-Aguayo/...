@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>良い週でした</title>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&family=Ms+Madi&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --amarillo:#FFC107;
+      --amarillo-claro:#FFD54F;
+      --fondo1:#fff8e1;
+      --fondo2:#ffe082;
+    }
+    html, body {
+      height: 100%;
+      margin: 0;
+      font-family: 'Quicksand', system-ui, sans-serif;
+      background: linear-gradient(160deg, var(--fondo1), var(--fondo2));
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    #petalos{
+      position:fixed;
+      inset:0;
+      z-index:0;
+      pointer-events: none;
+    }
+    .pochita-img {
+      display: block;
+      max-width: 90vw;
+      max-height: 80vh;
+      width: 500px;
+      z-index: 2;
+      position: relative;
+      cursor: pointer;
+      transition: transform .12s;
+    }
+    .pochita-img:hover {
+      transform: scale(1.04);
+    }
+    /* MODAL carta dedicatoria */
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 20;
+      background: rgba(0,0,0,0.32);
+      align-items: center;
+      justify-content: center;
+      animation: fadeIn 0.3s;
+    }
+    .modal.active { display: flex; }
+    .carta {
+      background: #fffbea;
+      border-radius: 18px 18px 30px 30px;
+      box-shadow: 0 10px 40px rgba(0,0,0,.17), 0 1px 60px 5px #ffe082 inset;
+      padding: 50px 32px 36px 32px;
+      text-align: center;
+      min-width: 330px;
+      max-width: 96vw;
+      max-height: 84vh;
+      position: relative;
+      font-size: 1.23rem;
+      color: #876427;
+      border: 3px solid #ffe082;
+      font-family: 'Ms Madi', cursive, 'Quicksand', system-ui, sans-serif;
+      letter-spacing: 0.04em;
+      animation: zoomIn .5s;
+    }
+    /* Simula una pestaña de sobre de carta arriba */
+    .carta::before {
+      content: "";
+      display: block;
+      position: absolute;
+      top: -25px; left: 50%; transform: translateX(-50%);
+      width: 50px; height: 32px;
+      background: #ffe082;
+      border-radius: 10px 10px 24px 24px;
+      box-shadow: 0 6px 12px rgba(255,193,7,0.13);
+    }
+    .dedic-title {
+      font-family: 'Ms Madi', cursive;
+      font-size: 2.1em;
+      margin: 6px 0 14px 0;
+      color: #eabb33;
+      letter-spacing: 0.04em;
+      font-weight: normal;
+    }
+    .cerrar {
+      position: absolute;
+      top: 16px;
+      right: 18px;
+      background: var(--amarillo-claro);
+      border: none;
+      font-size: 23px;
+      border-radius: 50%;
+      width: 34px;
+      height: 34px;
+      cursor: pointer;
+      color: #7a5a00;
+      box-shadow: 0 3px 8px rgba(255,193,7,.20);
+      transition: background .2s;
+    }
+    .cerrar:hover { background: var(--amarillo);}
+    @keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
+    @keyframes zoomIn { from {transform:scale(0.78);} to {transform:scale(1);} }
+  </style>
+</head>
+<body>
+  <canvas id="petalos"></canvas>
+  <img src="pochita_flores.png" alt="Pochita con flores" class="pochita-img" id="botonPochita">
+
+  <!-- Modal / Carta Dedicatoria -->
+  <div class="modal" id="modalDedicatoria">
+    <div class="carta">
+      <button class="cerrar" id="cerrarModal" title="Cerrar">&times;</button>
+      <div class="dedic-title">Que tengas una linda semana💛</div>
+    </div>
+  </div>
+
+  <script>
+    // Fondo animado de pétalos
+    const canvas = document.getElementById('petalos');
+    const ctx = canvas.getContext('2d');
+    let W, H, petalos = [];
+    function resize() {
+      W = canvas.width = innerWidth;
+      H = canvas.height = innerHeight;
+    }
+    addEventListener('resize', resize);
+    resize();
+
+    function crearPetalo() {
+      return {
+        x: Math.random() * W, y: -20, r: 8 + Math.random() * 10,
+        vy: 0.6 + Math.random() * 1.2, vx: -0.4 + Math.random() * 0.8,
+        rot: Math.random() * Math.PI * 2, vr: -0.01 + Math.random() * 0.02,
+        color: ['#FFF59D', '#FFE082', '#FFD54F', '#FFC107'][Math.floor(Math.random() * 4)]
+      };
+    }
+    for (let i = 0; i < 60; i++) petalos.push(crearPetalo());
+
+    function loop() {
+      ctx.clearRect(0, 0, W, H);
+      for (const p of petalos) {
+        p.x += p.vx;
+        p.y += p.vy;
+        p.rot += p.vr;
+        if (p.y > H + 30) {
+          p.x = Math.random() * W;
+          p.y = -20;
+        }
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.rot);
+        const g = ctx.createLinearGradient(0, -p.r, 0, p.r);
+        g.addColorStop(0, '#fffde7');
+        g.addColorStop(0.6, p.color);
+        g.addColorStop(1, '#fbc02d');
+        ctx.fillStyle = g;
+        ctx.beginPath();
+        ctx.moveTo(0, -p.r);
+        ctx.quadraticCurveTo(p.r, 0, 0, p.r);
+        ctx.quadraticCurveTo(-p.r, 0, 0, -p.r);
+        ctx.fill();
+        ctx.restore();
+      }
+      requestAnimationFrame(loop);
+    }
+    loop();
+
+    // Modal dedicatoria
+    const botonPochita = document.getElementById('botonPochita');
+    const modal = document.getElementById('modalDedicatoria');
+    const cerrarModal = document.getElementById('cerrarModal');
+    botonPochita.onclick = () => {
+      modal.classList.add('active');
+    };
+    cerrarModal.onclick = () => {
+      modal.classList.remove('active');
+    };
+    // También cerrar con Escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') modal.classList.remove('active');
+    });
+  </script>
+</body>
+</html>
