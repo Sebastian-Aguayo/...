@@ -10,17 +10,18 @@
 
 *{ box-sizing:border-box; }
 
-/* Cambia esto para permitir scroll */
+/* Permite scroll: ELIMINA height:100% y overflow:hidden */
 html, body {
-  /* height: 100%;    <--- Elimina! */
   margin: 0;
   font-family: 'Quicksand', system-ui, sans-serif;
   color: var(--texto);
   background: linear-gradient(160deg, var(--fondo1), var(--fondo2));
-  /* overflow: hidden; <--- Elimina! */
+  min-height: 100vh;    /* Así el fondo cubre bien y permite crecer */
+  /* NO height: 100%; */
+  /* NO overflow:hidden; */
 }
 
-/* El canvas animado sigue igual */
+/* Canvas: No bloquea scroll/clicks */
 #petalos {
   position: fixed;
   inset: 0;
@@ -28,7 +29,7 @@ html, body {
   pointer-events: none;
 }
 
-/* Tus bloques y cards se mantienen igual */
+/* CARD: todo igual */
 .card {
   position: relative;
   z-index: 1;
@@ -41,7 +42,7 @@ html, body {
   text-align: center;
 }
 
-/* La imagen de Pochita, en esquina inferior derecha */
+/* Pochita: fijo en esquina baja derecha */
 .pochita-img {
   position: fixed;
   right: 0;
@@ -52,21 +53,17 @@ html, body {
   cursor: pointer;
 }
 
-/* El resto de estilos lo puedes dejar igual */
-
-
+/* El resto igual */
 .titulo{
   font-family:'Ms Madi', cursive;
   font-size: clamp(36px, 7vw, 64px);
   margin:6px 0 12px;
   color:#7a5a00;
 }
-
 .dedicatoria{
   font-size: clamp(16px, 2.8vw, 20px);
   margin:0 0 12px;
 }
-
 .florero{
   position:relative;
   min-height:220px;
@@ -76,7 +73,6 @@ html, body {
   box-shadow: inset 0 8px 24px rgba(0,0,0,.06);
   overflow:hidden;
 }
-
 .btn{
   appearance:none;
   border:none;
@@ -91,17 +87,14 @@ html, body {
   transition: transform .06s ease, box-shadow .2s ease;
 }
 .btn:active{ transform: translateY(1px); box-shadow:0 3px 10px rgba(255,193,7,.35); }
-
 .acciones{ margin-top:10px; }
-
 .nota{ opacity:.7; font-size:13px; margin-top:10px; }
-
 /* Flor SVG */
 .flor{
   position:absolute;
   width:96px;
   height:96px;
- transform-origin:center center;
+  transform-origin:center center;
   animation:flotar 6s ease-in-out infinite;
   filter: drop-shadow(0 6px 8px rgba(0,0,0,.12));
 }
@@ -109,7 +102,6 @@ html, body {
   0%,100%{ transform: translateY(0) rotate(-2deg); }
   50%{ transform: translateY(-8px) rotate(2deg); }
 }
-
 /* Modal */
 .modal[hidden]{ display:none }
 .modal{ position:fixed; inset:0; z-index:10; }
@@ -124,88 +116,6 @@ html, body {
   border:none; font-size:30px; width:42px; height:42px; border-radius:50%; cursor:pointer }
 .prev{ left:12px } .next{ right:12px }
 .close{ position:absolute; top:10px; right:10px; border:none; background:#ffe082; width:36px; height:36px; border-radius:50%; cursor:pointer }
-
-
-
-
-
-:root{
-  --amarillo:#FFC107;
-  --amarillo-claro:#FFD54F;
-  --ambar:#FFB300;
-  --fondo1:#fff8e1;
-  --fondo2:#ffe082;
-  --texto:#3a2e1f;
-  --sombra: rgba(0,0,0,.12);
-}
-
-*{box-sizing:border-box}
-
-html,body{
-  height:100%;
-  margin:0;
-  font-family:'Quicksand', system-ui, sans-serif;
-  color:var(--texto);
-  background: linear-gradient(160deg, var(--fondo1), var(--fondo2));
-  overflow:hidden;
-}
-
-#petalos{ position:fixed; inset:0; z-index:0; }
-
-.card{
-  position:relative; z-index:1; width:min(720px, 92vw); margin:6vh auto;
-  background:#fffbea; border-radius:18px; box-shadow:0 16px 40px var(--sombra);
-  padding:24px 20px 28px; text-align:center;
-}
-
-.titulo{
-  font-family:'Ms Madi', cursive; font-size: clamp(36px, 7vw, 64px);
-  margin:6px 0 12px; color:#7a5a00;
-}
-
-.dedicatoria{ font-size: clamp(16px, 2.8vw, 20px); margin:0 0 12px; }
-
-.florero{
-  position:relative; min-height:220px; padding:14px; border-radius:16px;
-  background:linear-gradient(180deg, #fff7d6, #ffe89a);
-  box-shadow: inset 0 8px 24px rgba(0,0,0,.06); overflow:hidden;
-}
-
-.btn{
-  appearance:none; border:none; background: radial-gradient(120% 120% at 50% 0%, var(--amarillo-claro), var(--amarillo));
-  color:#4a3800; padding:10px 14px; margin:8px; border-radius:12px;
-  font-weight:600; cursor:pointer; box-shadow:0 6px 16px rgba(255,193,7,.35);
-  transition: transform .06s ease, box-shadow .2s ease;
-}
-.btn:active{ transform: translateY(1px); box-shadow:0 3px 10px rgba(255,193,7,.35); }
-
-.acciones{ margin-top:10px; }
-.nota{ opacity:.7; font-size:13px; margin-top:10px; }
-
-.flor{
-  position:absolute; width:96px; height:96px; transform-origin:center center;
-  animation:flotar 6s ease-in-out infinite; filter: drop-shadow(0 6px 8px rgba(0,0,0,.12));
-}
-@keyframes flotar{
-  0%,100%{ transform: translateY(0) rotate(-2deg); }
-  50%{ transform: translateY(-8px) rotate(2deg); }
-}
-
-/* --- Modales --- */
-.modal[hidden]{ display:none }
-.modal{ position:fixed; inset:0; z-index:10; display:flex; align-items:center; justify-content:center; }
-.modal-backdrop{ position:absolute; inset:0; background:rgba(0,0,0,.45); backdrop-filter: blur(2px); }
-.modal-content{ position:relative; background:#fffdf4; border-radius:16px; box-shadow:0 20px 60px rgba(0,0,0,.35); padding:10px; }
-.close{
-  position:absolute; top:10px; right:10px; border:none; background:#ffe082;
-  width:36px; height:36px; border-radius:50%; cursor:pointer; z-index:1;
-}
-
-
-
-
-
-
 /* PDF Viewer Modal */
 .pdf-viewer {
   width: min(800px, 90vw);
@@ -218,24 +128,13 @@ html,body{
   height: 100%;
   border: none;
 }
-
-/* Estilo para la imagen de Peanuts en el pie de página */
+/* Imagen footer Peanuts */
 .footer-img {
   display: block;
   margin: 20px auto;
-  /* --- AJUSTA ESTE NÚMERO PARA CAMBIAR EL TAMAÑO --- */
   max-width: 350px; 
   opacity: 0;
   animation: fadeIn 2s ease-in-out 1s forwards;
   filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
 }
-
-@keyframes fadeIn {
-  to {
-    opacity: 0.9;
-  }
-}
-
-
-
-/*asdasd*/
+@keyframes fadeIn { to { opacity: 0.9; } }
